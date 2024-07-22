@@ -51,9 +51,10 @@ class WipeInUsermod : public Usermod {
   private:
 
     // Private class members. You can declare variables and functions only accessible to your usermod here
-/*    bool enabled = false;
+    bool enabled = false;
     bool initDone = false;
     unsigned long lastTime = 0;
+*/
 
     // set your config variables to their boot default value (this can also be done in readFromConfig() or a constructor if you prefer)
     bool testBool = false;
@@ -88,7 +89,7 @@ class WipeInUsermod : public Usermod {
       // do your set-up here
       //Serial.println("Hello from my usermod!");
 
-      addEffect(FX_MODE_WIPE_IN, &mode_wipe_in, _data_FX_MODE_WIPE_IN);
+      addEffect(255, &mode_wipe_in, _data_FX_MODE_WIPE_IN);
       
       initDone = true;
     }
