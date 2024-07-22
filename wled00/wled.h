@@ -555,7 +555,7 @@ WLED_GLOBAL byte briLast             _INIT(128);           // brightness before 
 WLED_GLOBAL byte whiteLast           _INIT(128);           // white channel before turned off. Used for toggle function
 
 #ifdef USERMOD_WIPE_IN
-WLED_GLOBAL bool masterOffToggled    _INIT(false);         // to do a clean start after power off
+WLED_GLOBAL bool masterOnOff         _INIT(false);         // to detect power off to on transition
 #endif
 
 // button
