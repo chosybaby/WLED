@@ -279,7 +279,11 @@ class WipeInUsermod : public Usermod {
     void onStateChange(uint8_t mode) {
       // do something if WLED state changed (color, brightness, effect, preset, etc)
 
-
+      for(int i=0; i<mode; i++) {
+        SEGMENT.setPixelColor(7, RED);
+        delay(300);
+        SEGMENT.setPixelColor(7, BLACK);
+      }
       
     }
 
