@@ -279,11 +279,29 @@ class WipeInUsermod : public Usermod {
     void onStateChange(uint8_t mode) {
       // do something if WLED state changed (color, brightness, effect, preset, etc)
 
-      SEGMENT.setPixelColor(8, RED);
+      if(SEGMENT.getPixelColor(8) == CYAN)
+        SEGMENT.setPixelColor(8, RED);
+      else
+        SEGMENT.setPixelColor(8, CYAN);
+      
+      /*
       for(int i=0; i<mode; i++) {
         SEGMENT.setPixelColor(7, RED);
         delay(300);
         SEGMENT.setPixelColor(7, BLACK);
+      }
+      */
+      switch(mode) {
+        case 0: SEGMENT.setPixelColor(7, GREEN); break;
+        case 1: SEGMENT.setPixelColor(7, RED); break;
+        case 2: SEGMENT.setPixelColor(7, YELLOW); break;
+        case 3: SEGMENT.setPixelColor(7, BLUE; break;
+        case 4: SEGMENT.setPixelColor(7, ORANGE); break;
+        case 5: SEGMENT.setPixelColor(7, PURPLE); break;
+        case 6: SEGMENT.setPixelColor(7, PINK); break;
+        case 7: SEGMENT.setPixelColor(7, CYAN); break;
+        case 8: SEGMENT.setPixelColor(7, MAGENTA); break;
+        default: SEGMENT.setPixelColor(7, BLACK); break;
       }
       
     }
