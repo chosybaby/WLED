@@ -54,6 +54,11 @@ class WipeInUsermod : public Usermod {
     bool enabled = false;
     bool initDone = false;
     unsigned long lastTime = 0;
+
+    bool lastOnOff = false;
+    unsigned long startTime = 0;
+
+    // State state = OFF; // OFF, WIPE, ON
 /*
 
     // set your config variables to their boot default value (this can also be done in readFromConfig() or a constructor if you prefer)
@@ -118,6 +123,24 @@ class WipeInUsermod : public Usermod {
       // if usermod is disabled or called during strip updating just exit
       // NOTE: on very long strips strip.isUpdating() may always return true so update accordingly
       if (!enabled || strip.isUpdating()) return;
+
+      //switch(state)
+      if(masterOnOff != lastOnOff) {
+        if(masterOnOff) {
+          startTime = millis();
+          // setState(WIPE);
+          SEGMENT.setPixelColor(8, CYAN);
+        } else {
+          SEGMENT.setPixelColor(8, ORANGE);
+          // setState(OFF);
+        }
+        lastOnOff = masterOnOff;
+      }
+
+      if(millis() - startTime > 5000 /* && state == WIPE */) {
+          // setState(ON);
+          SEGMENT.setPixelColor(8, BLACK);
+      }
 
       // do your magic here
       if (millis() - lastTime > 1000) {
