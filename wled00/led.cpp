@@ -62,10 +62,10 @@ void toggleOnOff()
   {
     briLast = bri;
     bri = 0;
-    #ifdef USERMOD_WIPE_IN
-    masterOffToggled = true;
-    #endif
   }
+  #ifdef USERMOD_WIPE_IN
+  masterOnOff = !(bri == 0);
+  #endif
   stateChanged = true;
 }
 
