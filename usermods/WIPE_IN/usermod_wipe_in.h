@@ -66,12 +66,13 @@ class WipeInUsermod : public Usermod {
     int testInt;
     long testLong;
     int8_t testPins[2];
+*/
 
     // string that are used multiple time (this will save some flash memory)
     static const char _name[];
     static const char _enabled[];
 
-
+/*
     // any private methods should go here (non-inline method should be defined out of class)
     void publishMqtt(const char* state, bool retain = false); // example for publishing MQTT message
 
@@ -89,7 +90,7 @@ class WipeInUsermod : public Usermod {
       // do your set-up here
       //Serial.println("Hello from my usermod!");
 
-      addEffect(255, &mode_wipe_in, _data_FX_MODE_WIPE_IN);
+      strip.addEffect(255, &mode_wipe_in, _data_FX_MODE_WIPE_IN);
       
       initDone = true;
     }
@@ -304,11 +305,12 @@ class WipeInUsermod : public Usermod {
      * getId() allows you to optionally give your V2 usermod an unique ID (please define it in const.h!).
      * This could be used in the future for the system to determine whether your usermod is installed.
      */
+/*
     uint16_t getId()
     {
       return USERMOD_ID_WIPE_IN;
     }
-
+*/
    //More methods can be added in the future, this example will then be extended.
    //Your usermod will remain compatible as it does not need to implement all methods from the Usermod base class!
 };
