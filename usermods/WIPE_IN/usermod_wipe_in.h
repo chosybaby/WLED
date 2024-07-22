@@ -72,11 +72,10 @@ class WipeInUsermod : public Usermod {
     static const char _name[];
     static const char _enabled[];
 
-/*
-    // any private methods should go here (non-inline method should be defined out of class)
-    void publishMqtt(const char* state, bool retain = false); // example for publishing MQTT message
 
-*/
+    // any private methods should go here (non-inline method should be defined out of class)
+
+
   public:
 
     // methods called by WLED (can be inlined as they are called only once but if you call them explicitly define them out of class)
@@ -271,22 +270,6 @@ class WipeInUsermod : public Usermod {
     }
   
 
-#ifndef WLED_DISABLE_MQTT
-    /**
-     * handling of MQTT message
-     * topic only contains stripped topic (part after /wled/MAC)
-     */
-    bool onMqttMessage(char* topic, char* payload) {
-      return false;
-    }
-
-    /**
-     * onMqttConnect() is called when MQTT connection is established
-     */
-    void onMqttConnect(bool sessionPresent) {
-      return;
-    }
-#endif
 
 
     /**
@@ -322,14 +305,3 @@ const char WipeInUsermod::_enabled[] PROGMEM = "enabled";
 
 
 // implementation of non-inline member methods
-
-void WipeInUsermod::publishMqtt(const char* state, bool retain)
-{
-#ifndef WLED_DISABLE_MQTT
-  //Check if MQTT Connected, otherwise it will crash the 8266
-  if (WLED_MQTT_CONNECTED) {
-
-  }
-#endif
-  return;
-}
