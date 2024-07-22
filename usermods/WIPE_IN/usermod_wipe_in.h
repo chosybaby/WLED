@@ -295,7 +295,7 @@ class WipeInUsermod : public Usermod {
         case 0: SEGMENT.setPixelColor(7, GREEN); break;
         case 1: SEGMENT.setPixelColor(7, RED); break;
         case 2: SEGMENT.setPixelColor(7, YELLOW); break;
-        case 3: SEGMENT.setPixelColor(7, BLUE; break;
+        case 3: SEGMENT.setPixelColor(7, BLUE); break;
         case 4: SEGMENT.setPixelColor(7, ORANGE); break;
         case 5: SEGMENT.setPixelColor(7, PURPLE); break;
         case 6: SEGMENT.setPixelColor(7, PINK); break;
