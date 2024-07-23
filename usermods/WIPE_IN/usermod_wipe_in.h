@@ -78,6 +78,14 @@ uint16_t mode_wipe_in(void) {
       break;
   }
 
+
+  // draw effekt
+  for(int i=0; i<SEGLEN; i++) {
+    uint8_t bri = runTime * 0xFF / wipeTime;
+    SEGMENT.setPixelColor(i, color_blend(SEGMENT.color_wheel(SEGENV.aux0), BLACK, bri));
+  }
+
+  
   // display state
   switch(state) {
     default:
@@ -85,9 +93,6 @@ uint16_t mode_wipe_in(void) {
     case WIPE: SEGMENT.setPixelColor(10, CYAN); break;
     case ON:   SEGMENT.setPixelColor(10, BLUE); break;
   }
-
-  // draw effekt
-        
   
   return FRAMETIME;
 }
@@ -103,25 +108,7 @@ class WipeInUsermod : public Usermod {
     // Private class members. You can declare variables and functions only accessible to your usermod here
     bool enabled = false;
     bool initDone = false;
-    unsigned long lastTime = 0;
 
-    bool lastOnOff = false;
-    unsigned long startTime = 0;
-
-    // State state = OFF; // OFF, WIPE, ON
-/*
-
-    // set your config variables to their boot default value (this can also be done in readFromConfig() or a constructor if you prefer)
-    bool testBool = false;
-    unsigned long testULong = 42424242;
-    float testFloat = 42.42;
-    String testString = "Forty-Two";
-
-    // These config variables have defaults set inside readFromConfig()
-    int testInt;
-    long testLong;
-    int8_t testPins[2];
-*/
 
     // string that are used multiple time (this will save some flash memory)
     static const char _name[];
@@ -141,12 +128,7 @@ class WipeInUsermod : public Usermod {
      * You can use it to initialize variables, sensors or similar.
      */
     void setup() {
-      // do your set-up here
-      //Serial.println("Hello from my usermod!");
-
       strip.addEffect(255, &mode_wipe_in, _data_FX_MODE_WIPE_IN);
-      
-      initDone = true;
     }
 
 
@@ -175,22 +157,7 @@ class WipeInUsermod : public Usermod {
       if (!enabled || strip.isUpdating()) return;
 
         
-      if(masterOnOff != lastOnOff) {
-        if(masterOnOff) {
-          startTime = millis();
-          // setState(WIPE);
-          SEGMENT.setPixelColor(9, CYAN);
-        } else {
-          SEGMENT.setPixelColor(9, ORANGE);
-          // setState(OFF);
-        }
-        lastOnOff = masterOnOff;
-      }
 
-      if(millis() - startTime > 5000 /* && state == WIPE */) {
-          // setState(ON);
-          SEGMENT.setPixelColor(9, BLACK);
-      }
 
       // do your magic here
       if (millis() - lastTime > 1000) {
