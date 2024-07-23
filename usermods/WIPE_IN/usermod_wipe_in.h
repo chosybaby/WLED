@@ -53,7 +53,8 @@ uint16_t mode_wipe_in(void) {
   static unsigned long startTime = 0L;
   
   unsigned long runTime = millis() - startTime;
-
+  bool stateChanged = false;
+  
   // update state machine
   switch(state) {
     
@@ -62,27 +63,39 @@ uint16_t mode_wipe_in(void) {
       if(masterOnOff) {
         startTime = millis();
         state = WIPE;
+        stateChanged = true;
       }
       break;
     
     case WIPE:
-      if(!masterOnOff)  
+      if(!masterOnOff) {
         state = OFF;
-      else if(runTime > wipeTime)
+        stateChanged = true;
+      } else if(runTime > wipeTime) {
         state = ON;
+        stateChanged = true;
+      }
       break;
     
     case ON:
-      if(!masterOnOff) 
+      if(!masterOnOff) {
         state = OFF;
+        stateChanged = true;
+      }
       break;
   }
 
 
   // draw effekt
   for(int i=0; i<SEGLEN; i++) {
-    uint8_t bri = runTime * 0xFF / wipeTime;
-    SEGMENT.setPixelColor(i, color_blend(BLACK, SEGCOLOR(0), bri));
+    switch(state) {
+      case OFF: if(stateChanged) SEGMENT.setPixelColor(i, BLACK); break;
+      case WIPE:
+        uint8_t bri = runTime * 0xFF / wipeTime;
+        SEGMENT.setPixelColor(i, color_blend(BLACK, SEGCOLOR(0), bri));
+        break;
+      case ON: if(stateChanged) SEGMENT.setPixelColor(i, SEGCOLOR(0)); break;
+    }
   }
 
   
