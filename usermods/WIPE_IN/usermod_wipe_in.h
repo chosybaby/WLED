@@ -26,13 +26,12 @@ enum State {
   ON
 };
 
-State state = OFF;
-unsigned long startTime = 0;
 
 /*
  * Wipe in effect
  */
 uint16_t mode_wipe_in(void) {
+  /*
   static uint32_t delta = 0;
   
   if(SEGENV.call == 0) {
@@ -46,9 +45,18 @@ uint16_t mode_wipe_in(void) {
   }
   if(SEGMENT.getPixelColor(5) == (uint32_t)0x00000000)
     SEGMENT.setPixelColor(5, YELLOW);
+  */
 
+  static const unsigned long wipeTime = 5000L;
+  
+  static State state = OFF;
+  static unsigned long startTime = 0L;
+  
+  unsigned long runTime = millis() - startTime;
 
+  // update state machine
   switch(state) {
+    
     default:
     case OFF:
       if(masterOnOff) {
@@ -56,25 +64,29 @@ uint16_t mode_wipe_in(void) {
         state = WIPE;
       }
       break;
+    
     case WIPE:
       if(!masterOnOff)  
         state = OFF;
-      else if(millis() - startTime > 5000)
+      else if(runTime > wipeTime)
         state = ON;
       break;
+    
     case ON:
       if(!masterOnOff) 
         state = OFF;
       break;
   }
 
+  // display state
   switch(state) {
     default:
     case OFF:  SEGMENT.setPixelColor(10, RED); break;
     case WIPE: SEGMENT.setPixelColor(10, CYAN); break;
     case ON:   SEGMENT.setPixelColor(10, BLUE); break;
   }
-  
+
+  // draw effekt
         
   
   return FRAMETIME;
