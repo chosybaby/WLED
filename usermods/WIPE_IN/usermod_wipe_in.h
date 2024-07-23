@@ -125,13 +125,19 @@ class WipeInUsermod : public Usermod {
       if (!enabled || strip.isUpdating()) return;
 
       //switch(state)
+      if(masterOnOff)
+        SEGMENT.setPixelColor(10, CYAN);
+      else
+        SEGMENT.setPixelColor(10, BLUE);
+        
+        
       if(masterOnOff != lastOnOff) {
         if(masterOnOff) {
           startTime = millis();
           // setState(WIPE);
-          SEGMENT.setPixelColor(8, CYAN);
+          SEGMENT.setPixelColor(9, CYAN);
         } else {
-          SEGMENT.setPixelColor(8, ORANGE);
+          SEGMENT.setPixelColor(9, ORANGE);
           // setState(OFF);
         }
         lastOnOff = masterOnOff;
@@ -139,7 +145,7 @@ class WipeInUsermod : public Usermod {
 
       if(millis() - startTime > 5000 /* && state == WIPE */) {
           // setState(ON);
-          SEGMENT.setPixelColor(8, BLACK);
+          SEGMENT.setPixelColor(9, BLACK);
       }
 
       // do your magic here
