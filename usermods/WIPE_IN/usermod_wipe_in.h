@@ -21,10 +21,11 @@
  */
 
 enum State {
-OFF,
-WIPE,
-ON
-}
+  OFF,
+  WIPE,
+  ON
+};
+
 State state = OFF;
 unsigned long startTime = 0;
 
