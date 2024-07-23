@@ -91,8 +91,10 @@ uint16_t mode_wipe_in(void) {
     switch(state) {
       case OFF: if(stateChanged) SEGMENT.setPixelColor(i, BLACK); break;
       case WIPE:
-        uint8_t bri = runTime * 0xFF / wipeTime;
-        SEGMENT.setPixelColor(i, color_blend(BLACK, SEGCOLOR(0), bri));
+        {
+          uint8_t bri = runTime * 0xFF / wipeTime;
+          SEGMENT.setPixelColor(i, color_blend(BLACK, SEGCOLOR(0), bri));
+        }
         break;
       case ON: if(stateChanged) SEGMENT.setPixelColor(i, SEGCOLOR(0)); break;
     }
