@@ -82,7 +82,7 @@ uint16_t mode_wipe_in(void) {
   // draw effekt
   for(int i=0; i<SEGLEN; i++) {
     uint8_t bri = runTime * 0xFF / wipeTime;
-    SEGMENT.setPixelColor(i, color_blend(BLACK, SEGMENT.color_from_palette(i, true, PALETTE_SOLID_WRAP, 0), bri));
+    SEGMENT.setPixelColor(i, color_blend(BLACK, SEGCOLOR(1), bri));
   }
 
   
