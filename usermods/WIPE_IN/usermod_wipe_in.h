@@ -107,7 +107,7 @@ class WipeInUsermod : public Usermod {
 
     // Private class members. You can declare variables and functions only accessible to your usermod here
     bool enabled = false;
-    bool initDone = false;
+
 
 
     // string that are used multiple time (this will save some flash memory)
@@ -156,14 +156,8 @@ class WipeInUsermod : public Usermod {
       // NOTE: on very long strips strip.isUpdating() may always return true so update accordingly
       if (!enabled || strip.isUpdating()) return;
 
-        
-
-
       // do your magic here
-      if (millis() - lastTime > 1000) {
-        //Serial.println("I'm alive!");
-        lastTime = millis();
-      }
+
     }
 
 
