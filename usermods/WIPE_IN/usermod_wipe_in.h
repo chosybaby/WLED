@@ -20,7 +20,13 @@
  * 2. Register the usermod by adding #include "usermod_filename.h" in the top and registerUsermod(new MyUsermodClass()) in the bottom of usermods_list.cpp
  */
 
-
+enum State {
+OFF,
+WIPE,
+ON
+}
+State state = OFF;
+unsigned long startTime = 0;
 
 /*
  * Wipe in effect
@@ -41,11 +47,33 @@ uint16_t mode_wipe_in(void) {
     SEGMENT.setPixelColor(5, YELLOW);
 
 
+  switch(state) {
+    default:
+    case OFF:
+      if(masterOnOff) {
+        startTime = millis();
+        state = WIPE;
+      }
+      break;
+    case WIPE:
+      if(!masterOnOff)  
+        state = OFF;
+      else if(millis() - startTime > 5000)
+        state = ON;
+      break;
+    case ON:
+      if(!masterOnOff) 
+        state = OFF;
+      break;
+  }
 
-  if(masterOnOff)
-    SEGMENT.setPixelColor(10, CYAN);
-  else
-    SEGMENT.setPixelColor(10, BLUE);
+  switch(state) {
+    default:
+    case OFF:  SEGMENT.setPixelColor(10, RED); break;
+    case WIPE: SEGMENT.setPixelColor(10, CYAN); break;
+    case ON:   SEGMENT.setPixelColor(10, BLUE); break;
+  }
+  
         
   
   return FRAMETIME;
@@ -133,12 +161,6 @@ class WipeInUsermod : public Usermod {
       // NOTE: on very long strips strip.isUpdating() may always return true so update accordingly
       if (!enabled || strip.isUpdating()) return;
 
-      //switch(state)
-      if(masterOnOff)
-        SEGMENT.setPixelColor(10, CYAN);
-      else
-        SEGMENT.setPixelColor(10, BLUE);
-        
         
       if(masterOnOff != lastOnOff) {
         if(masterOnOff) {
