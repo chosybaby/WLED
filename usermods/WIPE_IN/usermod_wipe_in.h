@@ -39,6 +39,15 @@ uint16_t mode_wipe_in(void) {
   }
   if(SEGMENT.getPixelColor(5) == (uint32_t)0x00000000)
     SEGMENT.setPixelColor(5, YELLOW);
+
+
+
+  if(masterOnOff)
+    SEGMENT.setPixelColor(10, CYAN);
+  else
+    SEGMENT.setPixelColor(10, BLUE);
+        
+  
   return FRAMETIME;
 }
 static const char _data_FX_MODE_WIPE_IN[] PROGMEM = "Wipe In@!,!;!,!;!";
