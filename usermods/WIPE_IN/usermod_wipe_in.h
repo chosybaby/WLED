@@ -87,7 +87,7 @@ uint16_t mode_wipe_in(void) {
 
 
   // draw effekt
-  for(unint32_t i=0; i<SEGLEN*0xFF; i+=0xFF) {
+  for(uint32_t i=0; i<SEGLEN*0xFF; i+=0xFF) {
     switch(state) {
       //case OFF: if(stateChanged) SEGMENT.setPixelColor(i, BLACK); break;
       case OFF: break; // let color & brightness just stay as is seems better then switching to BLACK
