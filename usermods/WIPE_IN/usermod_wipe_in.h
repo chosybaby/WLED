@@ -87,7 +87,7 @@ uint16_t mode_wipe_in(void) {
 
 
   // draw effekt
-  for(uint32_t i=0; i<SEGLEN*0xFF; i+=0xFF) {
+  for(uint8_t i=0; i<SEGLEN; i++) {
     switch(state) {
       //case OFF: if(stateChanged) SEGMENT.setPixelColor(i, BLACK); break;
       case OFF: break; // let color & brightness just stay as is seems better then switching to BLACK
@@ -96,11 +96,11 @@ uint16_t mode_wipe_in(void) {
           //uint8_t transition = runTime * 0xFF / wipeTime;
           //SEGMENT.setPixelColor(i/0xFF, color_blend(BLACK, SEGCOLOR(0), transition));
           
-          uint32_t progress = SEGLEN * 0xFF * runTime / wipeTime;
-          if(progress > i+0xFF)
-            SEGMENT.setPixelColor(i/0xFF, SEGCOLOR(0));
-          else if(progress > i)
-            SEGMENT.setPixelColor(i/0xFF, color_blend(BLACK, SEGCOLOR(0), progress % i));
+          unsigned long progress = SEGLEN * 0xFF * runTime / wipeTime;
+          if(progress > (i+1)*0xFF)
+            SEGMENT.setPixelColor(i, SEGCOLOR(0));
+          else if(progress > i*0xFF)
+            SEGMENT.setPixelColor(i, color_blend(BLACK, SEGCOLOR(0), progress % 0xFF));
         }
         break;
       case ON: if(stateChanged) SEGMENT.setPixelColor(i, SEGCOLOR(0)); break;
