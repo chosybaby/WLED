@@ -101,6 +101,8 @@ uint16_t mode_wipe_in(void) {
             SEGMENT.setPixelColor(i, SEGCOLOR(0));
           else if(progress > i*0xFF)
             SEGMENT.setPixelColor(i, color_blend(BLACK, SEGCOLOR(0), progress % 0xFF));
+          else
+            SEGMENT.setPixelColor(i, BLACK);
         }
         break;
       case ON: if(stateChanged) SEGMENT.setPixelColor(i, SEGCOLOR(0)); break;
