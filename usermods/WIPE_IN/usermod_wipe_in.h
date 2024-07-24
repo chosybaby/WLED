@@ -96,7 +96,7 @@ uint16_t mode_wipe_in(void) {
           //uint8_t transition = runTime * 0xFF / wipeTime;
           //SEGMENT.setPixelColor(i/0xFF, color_blend(BLACK, SEGCOLOR(0), transition));
           
-          unint32_t progress = SEGLEN * 0xFF * runTime / wipeTime;
+          uint32_t progress = SEGLEN * 0xFF * runTime / wipeTime;
           if(progress > i+0xFF)
             SEGMENT.setPixelColor(i, SEGCOLOR(0));
           else if(progress > i)
